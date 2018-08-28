@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 
-import {
-  Dialog,
-  DialogTitle,
-  List,
-  ListItem,
-  Avatar,
-  ListItemText,
-  DialogActions,
-  Button
-} from '@material-ui/core';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import { List, ListItem } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
 export default class UserSelection extends Component {
   constructor(props) {
@@ -21,12 +15,10 @@ export default class UserSelection extends Component {
 
     this.props.getAvailableUsers((err, availableUsers) => {
       this.setState({ availableUsers: availableUsers });
-      console.log(availableUsers);
     });
   }
 
   handleClose = () => {
-    console.log(this.props.location);
     this.setState({ open: false });
     this.props.history.push('/');
   };
@@ -44,29 +36,34 @@ export default class UserSelection extends Component {
           button
           onClick={() => this.handleSelect(user)}
           key={user.name}
+          primaryText={user.name}
+          secondaryText={user.statusText}
         >
           <Avatar src={user.image} alt="" />
-          <ListItemText primary={user.name} secondary={user.statusText} />
         </ListItem>
       ))}
     </List>
   );
 
   render() {
+    const actions = [
+      <FlatButton label="Cancel" primary onClick={this.handleClose} />
+    ];
+
     return (
       <div>
-        <Dialog open={this.state.open} onClose={this.handleClose}>
-          <DialogTitle>Pick your character</DialogTitle>
+        <Dialog
+          actions={actions}
+          open={this.state.open}
+          onClose={this.handleClose}
+          modal={false}
+          title="Pick your character"
+        >
           {!this.state.availableUsers ? (
             <div>loading</div>
           ) : (
             this.renderUserList()
           )}
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-          </DialogActions>
         </Dialog>
       </div>
     );

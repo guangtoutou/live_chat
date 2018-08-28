@@ -33,7 +33,7 @@ export default function() {
   }
 
   function getChatrooms(cb) {
-    socket.emit('chatrooms', null, cb);
+    socket.emit('chat rooms', null, cb);
   }
 
   function getAvailableUsers(cb) {

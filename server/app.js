@@ -9,7 +9,7 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
   io.emit('user connected', 'a new user connected');
-  const { getAvailableUsers } = Handlers();
+  const { getAvailableUsers, getChatRooms } = Handlers();
 
   socket.on('chat message', function(msg) {
     io.emit('chat message', msg);
@@ -20,6 +20,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('availableUsers', getAvailableUsers);
+  socket.on('chat rooms', getChatRooms);
 });
 
 http.listen(3001, function() {

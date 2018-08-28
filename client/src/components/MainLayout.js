@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import Icon from '@material-ui/core/Icon';
+import Avatar from 'material-ui/Avatar';
+import FontIcon from 'material-ui/FontIcon';
 
 import FullScreen from './FullScreen';
 import Overlay from './Overlay';
@@ -67,23 +67,17 @@ const UserName = styled.p`
 `;
 
 function renderAvatar(user) {
-  let avatar;
+  const props = user
+    ? { src: user.image }
+    : {
+        icon: (
+          <FontIcon style={{ fontSize: 96 }} className="material-icons">
+            {'perm_identity'}
+          </FontIcon>
+        )
+      };
 
-  if (user) {
-    avatar = (
-      <Avatar style={{ width: '160px', height: '160px' }} src={user.image} />
-    );
-  } else {
-    avatar = (
-      <Avatar style={{ width: '160px', height: '160px' }}>
-        <Icon style={{ fontSize: 96 }} className="material-icons">
-          {'perm_identity'}
-        </Icon>
-      </Avatar>
-    );
-  }
-
-  return avatar;
+  return <Avatar size={160} {...props} />;
 }
 
 function fullName(user) {
@@ -109,7 +103,7 @@ export default ({ children, user }) => {
         </Center>
       </ContentWrapper>
       <FullScreen>
-        <BackgroundImage src="background.jpg" />
+        <BackgroundImage src="/background.jpg" />
         <Overlay opacity={0.4} background="#212121" />
       </FullScreen>
     </FullScreen>

@@ -1,5 +1,11 @@
 import React from 'react';
 
-export default ({ chatrooms, onEnterChatroom }) => {
-  return <div>chart rooms preview</div>;
-};
+import ChatroomPreview from './ChatroomPreview';
+
+export default ({ chatrooms, onEnterChatroom }) => (
+  <div>
+    {chatrooms.map(chatroom => (
+      <ChatroomPreview key={chatroom.name} chatroom={chatroom} />
+    ))}
+  </div>
+);
